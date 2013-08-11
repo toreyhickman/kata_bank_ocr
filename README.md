@@ -1,0 +1,1 @@
+My solution to the KataBankOCR at codingdojo.org
