@@ -4,7 +4,7 @@ class Parser
 
   def self.convert_to_digits(string)
     string = clean_up(string)
-    string
+    grouped_chars = group_chars(string)
   end
 
   def self.clean_up(string)
@@ -21,6 +21,24 @@ class Parser
   def self.remove_new_line_chars(string)
     string.gsub!(/\n/, "")
     string
+  end
+
+  def self.group_chars(string)
+    groups = groups_of_three_chars(string)
+    groups = combine_groups(groups)
+    groups
+  end
+
+  def self.groups_of_three_chars(string)
+    string.scan(/.../)
+  end
+
+  def self.combine_groups(array)
+    groups = []
+    (0..8).each do |n|
+      groups[n] = array[n] + array[n + 9] + array[n + 18]
+    end
+    groups
   end
 
 end
