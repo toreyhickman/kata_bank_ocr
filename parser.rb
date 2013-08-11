@@ -1,10 +1,13 @@
 # Parses incoming strings of pipes and underscores into strings of digits
 
+require_relative 'string_digit_mapper'
+
 class Parser
 
   def self.convert_to_digits(string)
     string = clean_up(string)
     grouped_chars = group_chars(string)
+    digits_array = convert_strings_to_digits(grouped_chars)
   end
 
   def self.clean_up(string)
@@ -39,6 +42,13 @@ class Parser
       groups[n] = array[n] + array[n + 9] + array[n + 18]
     end
     groups
+  end
+
+  def self.convert_strings_to_digits(array)
+    array.map! do |string|
+      string = StringDigitMapper.map[string]
+    end
+    array
   end
 
 end
