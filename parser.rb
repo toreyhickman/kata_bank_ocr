@@ -8,6 +8,7 @@ class Parser
     string = clean_up(string)
     grouped_chars = group_chars(string)
     digits_array = convert_strings_to_digits(grouped_chars)
+    digits_string = digits_array.join
   end
 
   def self.clean_up(string)
@@ -58,7 +59,7 @@ end
 
 # Tests
 
-puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ") == 000000000
+puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n| || || || || || || || || |\n|_||_||_||_||_||_||_||_||_|\n                           ") == "000000000"
 
 
 
