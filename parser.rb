@@ -47,7 +47,7 @@ class Parser
 
   def self.convert_strings_to_digits(array)
     array.map! do |string|
-      string = StringDigitMapper.map[string]
+      string = StringDigitMapper.map.has_key?(string) ? StringDigitMapper.map[string] : "?"
     end
     array
   end
@@ -69,3 +69,8 @@ puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n  |  |  |  |  |  |  
 puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n|_||_||_||_||_||_||_||_||_|\n                           ") == "888888888"
 puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n _| _| _| _| _| _| _| _| _|\n                           ") == "999999999"
 puts Parser.convert_to_digits("    _  _     _  _  _  _  _ \n  | _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ") == "123456789"
+
+# Use Case Three Tests
+puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| || ||_   |  |  | _ \n  | _||_||_||_|  |  |  | _|\n                           ") == "49006771?"
+puts Parser.convert_to_digits("    _  _     _  _  _  _  _ \n  | _| _||_| _ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _ \n                           ") == "1234?678?"
+puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _    \n| || || || || || || ||_   |\n|_||_||_||_||_||_||_| _|  |\n                           ") == "000000051"
