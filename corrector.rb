@@ -6,7 +6,7 @@ class Corrector
     ill_string = array[ill_char_index]
     replacement_options = find_replacement_options(ill_string)
     valid_options = test_replacement_options(digit_string, ill_char_index, replacement_options)
-    return valid_options[0] if valid_options.size == 1
+    valid_options.size == 1 ? valid_options[0] : string
   end
 
   def self.correct_invalid(string, array)
