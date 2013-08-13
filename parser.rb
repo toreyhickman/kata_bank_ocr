@@ -51,10 +51,10 @@ class Parser
   end
 
   def self.convert_strings_to_digits(array)
-    array.map! do |string|
+    digits_array = array.map do |string|
       string = StringDigitMapper.map.has_key?(string) ? StringDigitMapper.map[string] : "?"
     end
-    array
+    digits_array
   end
 
   def self.add_identifiers(string)
