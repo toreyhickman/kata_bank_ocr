@@ -2,6 +2,7 @@
 
 require_relative 'string_digit_mapper'
 require_relative 'check_sum'
+require_relative 'corrector'
 
 class Parser
 
@@ -10,7 +11,9 @@ class Parser
     grouped_chars = group_chars(string)
     digits_array = convert_strings_to_digits(grouped_chars)
     digits_string = digits_array.join
-    output_string = add_identifiers(digits_string)
+    marked_string = add_identifiers(digits_string)
+    output_string = needs_correction?(marked_string) ? make_corrections(marked_string, grouped_chars) : marked_string
+    output_string
   end
 
   def self.clean_up(string)
@@ -61,6 +64,14 @@ class Parser
       string << " ERR"
     end
     string
+  end
+
+  def self.needs_correction?(string)
+    string.match(/ILL/) || string.match(/ERR/)
+  end
+
+  def self.make_corrections(string, array)
+    string.match(/ILL/) ? Corrector.correct_illegible(string, array) : Corrector.correct_invalid(string, array)
   end
 
 end
