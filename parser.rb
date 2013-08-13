@@ -100,3 +100,5 @@ end
 
 #Use Case Four Tests
 puts Parser.convert_to_digits("    _  _     _  _  _  _  _ \n _| _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ") == "123456789"
+puts Parser.convert_to_digits(" _     _  _  _  _  _  _    \n| || || || || || || ||_   |\n|_||_||_||_||_||_||_| _|  |\n                           ") == "000000051"
+puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| ||_||_   |  |  | _ \n  | _||_||_||_|  |  |  | _|\n                           ") == "490867715"

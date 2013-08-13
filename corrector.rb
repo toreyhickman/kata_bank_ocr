@@ -5,11 +5,8 @@ class Corrector
     ill_char_index = digit_string.index('?')
     ill_string = array[ill_char_index]
     replacement_options = find_replacement_options(ill_string)
-
-    #puts replacement_options.inspect
-
-    valid_replacement_options = test_replacement_options(digit_string, ill_char_index, replacement_options)
-    return valid_replacement_options[0] if valid_replacement_options.size == 1
+    valid_options = test_replacement_options(digit_string, ill_char_index, replacement_options)
+    return valid_options[0] if valid_options.size == 1
   end
 
   def self.correct_invalid(string, array)
@@ -38,11 +35,7 @@ class Corrector
     array.each do |char_string|
       acct_num = string
       acct_num[index] = StringDigitMapper.map[char_string]
-      puts "With #{StringDigitMapper.map[char_string]} ..."
-      puts CheckSum.is_valid?(acct_num)
-
-      # Add valid digits to valid_options array
-
+      valid_options << acct_num.clone if CheckSum.is_valid?(acct_num)
     end
     valid_options
   end
