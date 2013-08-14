@@ -100,12 +100,11 @@ end
 
 # Use Case Four Tests
 # Illegibles
-puts Parser.convert_to_digits("    _  _     _  _  _  _  _ \n _| _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ") == "123456789"
-puts Parser.convert_to_digits(" _     _  _  _  _  _  _    \n| || || || || || || ||_   |\n|_||_||_||_||_||_||_| _|  |\n                           ") == "000000051"
-puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| ||_||_   |  |  | _ \n  | _||_||_||_|  |  |  | _|\n                           ") == "490867715"
-puts
+# puts Parser.convert_to_digits("    _  _     _  _  _  _  _ \n _| _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ") == "123456789"
+# puts Parser.convert_to_digits(" _     _  _  _  _  _  _    \n| || || || || || || ||_   |\n|_||_||_||_||_||_||_| _|  |\n                           ") == "000000051"
+# puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| ||_||_   |  |  | _ \n  | _||_||_||_|  |  |  | _|\n                           ") == "490867715"
 # Errors
-puts Parser.convert_to_digits("                           \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           ") == "711111111"
+# puts Parser.convert_to_digits("                           \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           ") == "711111111"
 # puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           ") == "777777177"
 # puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n _|| || || || || || || || |\n|_ |_||_||_||_||_||_||_||_|\n                           ") == "200800000"
 # puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n _| _| _| _| _| _| _| _| _|\n _| _| _| _| _| _| _| _| _|\n                           ") == "333393333"
