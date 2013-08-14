@@ -10,7 +10,40 @@ class Corrector
   end
 
   def self.correct_invalid(string, array)
-    string
+    digit_string = remove_non_digits(string)
+    possibilities_at_index = find_possibilities(array)
+    possibile_acct_nums = create_possible_numbers(digit_string, possibilities_at_index)
+    puts possibile_acct_nums
+  end
+
+  def self.create_possible_numbers(string, array_of_arrays)
+    possible_acct_numbers = []
+    array_of_arrays.each_with_index do |array, index|
+      array.each do |digit|
+        editable_string = string.clone
+        editable_string[index] = digit
+        possible_acct_numbers << editable_string
+      end
+    end
+    possible_acct_numbers
+  end
+
+
+
+
+
+
+
+
+
+
+
+  def self.find_possibilities(array)
+    possibilities_at_index = array.map { |char_string| find_replacement_options(char_string) }
+    possibilities_at_index.each do |nested_array|
+      nested_array.map! { |char_string| StringDigitMapper.map[char_string] }
+    end
+    possibilities_at_index
   end
 
   def self.find_replacement_options(string)
