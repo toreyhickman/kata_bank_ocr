@@ -15,4 +15,8 @@ class StringDigitMapper
       " _ |_| _|" => "9" }
   end
 
+  def self.keys
+    self.map.keys
+  end
+
 end
