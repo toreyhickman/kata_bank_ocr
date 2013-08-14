@@ -3,8 +3,28 @@
 require_relative 'string_digit_mapper'
 require_relative 'check_sum'
 require_relative 'corrector'
+require_relative 'document_reader'
 
 class Parser
+
+  def self.parse(filename)
+    lines = DocumentReader.readin(filename)
+    grouped_lines = group_lines(lines)
+    acct_nums = format_for_output(grouped_lines)
+    puts acct_nums
+  end
+
+  def self.group_lines(array)
+    grouped_lines = []
+    grouped_lines << array.slice!(0..3) until array.size < 4
+    grouped_lines.map { |x| x.join('') }
+  end
+
+  def self.format_for_output(array)
+    formatted_acct_nums = []
+    array.each { |string| formatted_acct_nums << convert_to_digits(string) }
+    formatted_acct_nums
+  end
 
   def self.convert_to_digits(string)
     string = clean_up(string)
@@ -23,7 +43,7 @@ class Parser
   end
 
   def self.remove_empty_fourth_line(string)
-    string.gsub!(/\ *\Z/, "")
+    string.gsub!(/\ *\n\Z/, "")
     string
   end
 
@@ -73,7 +93,6 @@ class Parser
   def self.make_corrections(string, array)
     string.match(/ILL/) ? Corrector.correct_illegible(string, array) : Corrector.correct_invalid(string, array)
   end
-
 end
 
 
@@ -100,16 +119,19 @@ end
 
 # Use Case Four Tests
 # Illegibles
-# puts Parser.convert_to_digits("    _  _     _  _  _  _  _ \n _| _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           ") == "123456789"
-# puts Parser.convert_to_digits(" _     _  _  _  _  _  _    \n| || || || || || || ||_   |\n|_||_||_||_||_||_||_| _|  |\n                           ") == "000000051"
-# puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| ||_||_   |  |  | _ \n  | _||_||_||_|  |  |  | _|\n                           ") == "490867715"
+# puts Parser.convert_to_digits("    _  _     _  _  _  _  _ \n _| _| _||_||_ |_   ||_||_|\n  ||_  _|  | _||_|  ||_| _|\n                           \n") == "123456789"
+# puts Parser.convert_to_digits(" _     _  _  _  _  _  _    \n| || || || || || || ||_   |\n|_||_||_||_||_||_||_| _|  |\n                           \n") == "000000051"
+# puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| ||_||_   |  |  | _ \n  | _||_||_||_|  |  |  | _|\n                           \n") == "490867715"
 # Errors
-# puts Parser.convert_to_digits("                           \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           ") == "711111111"
-# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           ") == "777777177"
-# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n _|| || || || || || || || |\n|_ |_||_||_||_||_||_||_||_|\n                           ") == "200800000"
-# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n _| _| _| _| _| _| _| _| _|\n _| _| _| _| _| _| _| _| _|\n                           ") == "333393333"
-# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n|_||_||_||_||_||_||_||_||_|\n                           ") == "888888888 AMB ['888886888', '888888880', '888888988']"
-# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_ |_ |_ |_ |_ |_ |_ |_ |_ \n _| _| _| _| _| _| _| _| _|\n                           ") == "555555555 AMB ['555655555', '559555555']"
-# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_ |_ |_ |_ |_ |_ |_ |_ |_ \n|_||_||_||_||_||_||_||_||_|\n                           ") == "666666666 AMB ['666566666', '686666666']"
-# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n _| _| _| _| _| _| _| _| _|\n                           ") == "999999999 AMB ['899999999', '993999999', '999959999']"
-# puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| || ||_   |  |  ||_ \n  | _||_||_||_|  |  |  | _|\n                           ") == "490067715 AMB ['490067115', '490067719', '490867715']"
+# puts Parser.convert_to_digits("                           \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           \n") == "711111111"
+# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n  |  |  |  |  |  |  |  |  |\n  |  |  |  |  |  |  |  |  |\n                           \n") == "777777177"
+# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n _|| || || || || || || || |\n|_ |_||_||_||_||_||_||_||_|\n                           \n") == "200800000"
+# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n _| _| _| _| _| _| _| _| _|\n _| _| _| _| _| _| _| _| _|\n                           \n") == "333393333"
+# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n|_||_||_||_||_||_||_||_||_|\n                           \n") == "888888888 AMB ['888886888', '888888880', '888888988']"
+# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_ |_ |_ |_ |_ |_ |_ |_ |_ \n _| _| _| _| _| _| _| _| _|\n                           \n") == "555555555 AMB ['555655555', '559555555']"
+# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_ |_ |_ |_ |_ |_ |_ |_ |_ \n|_||_||_||_||_||_||_||_||_|\n                           \n") == "666666666 AMB ['666566666', '686666666']"
+# puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n _| _| _| _| _| _| _| _| _|\n                           \n") == "999999999 AMB ['899999999', '993999999', '999959999']"
+# puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| || ||_   |  |  ||_ \n  | _||_||_||_|  |  |  | _|\n                           \n") == "490067715 AMB ['490067115', '490067719', '490867715']"
+
+# Readin Tests
+Parser.parse("readin.txt")
