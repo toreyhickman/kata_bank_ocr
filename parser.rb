@@ -134,4 +134,11 @@ end
 # puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| || ||_   |  |  ||_ \n  | _||_||_||_|  |  |  | _|\n                           \n") == "490067715 AMB ['490067115', '490067719', '490867715']"
 
 # Readin Tests
-Parser.parse("readin.txt")
+
+if ARGV[0]
+  Parser.parse(ARGV[0])
+else
+  puts "From which file would you like to read account numbers?"
+  filename = gets.chomp
+  Parser.parse(filename)
+end
