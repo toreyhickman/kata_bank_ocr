@@ -4,6 +4,7 @@ require_relative 'string_digit_mapper'
 require_relative 'check_sum'
 require_relative 'corrector'
 require_relative 'document_reader'
+require_relative 'document_writer'
 
 class Parser
 
@@ -11,7 +12,7 @@ class Parser
     lines = DocumentReader.readin(filename)
     grouped_lines = group_lines(lines)
     acct_nums = format_for_output(grouped_lines)
-    puts acct_nums
+    DocumentWriter.write(acct_nums)
   end
 
   def self.group_lines(array)
