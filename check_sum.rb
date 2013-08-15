@@ -1,22 +1,24 @@
+# Validates account numbers
+
 class CheckSum
 
-  def self.is_valid?(string_of_digits)
-    dividend = pre_modulo_calculation(string_of_digits)
+  def self.is_valid?(str_of_digits)
+    dividend = pre_modulo_calculation(str_of_digits)
     dividend % 11 == 0
   end
 
-  def self.pre_modulo_calculation(string)
-    integers = string_to_array_of_integers(string)
+  def self.pre_modulo_calculation(str_of_digits)
+    integers = string_to_array_of_integers(str_of_digits)
     products = int_times_factor(integers)
     products.reduce(&:+)
   end
 
-  def self.string_to_array_of_integers(string)
-    string.split('').map { |char| char.to_i }
+  def self.string_to_array_of_integers(str_of_digits)
+    str_of_digits.split('').map { |char| char.to_i }
   end
 
-  def self.int_times_factor(array)
-    array.each_with_index.map { |n, index| (n * (9 - index)) }
+  def self.int_times_factor(array_of_integers)
+    array_of_integers.each_with_index.map { |n, index| (n * (9 - index)) }
   end
 end
 

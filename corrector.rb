@@ -1,3 +1,5 @@
+# Takes illegible and invalid account numbers and finds valid alternatives
+
 class Corrector
 
   def self.correct_illegible(string, array)

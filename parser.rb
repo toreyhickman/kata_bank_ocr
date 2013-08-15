@@ -9,7 +9,7 @@ require_relative 'document_writer'
 class Parser
 
   def self.parse(filename)
-    lines = DocumentReader.readin(filename)
+    lines = DocumentReader.read_in(filename)
     grouped_lines = group_lines(lines)
     acct_nums = format_for_output(grouped_lines)
     DocumentWriter.write(acct_nums)
@@ -97,6 +97,16 @@ class Parser
 end
 
 
+if ARGV[0]
+  Parser.parse(ARGV[0])
+else
+  puts "From which file would you like to read account numbers?"
+  filename = gets.chomp
+  Parser.parse(filename)
+end
+
+
+
 
 
 # Use Case One Tests
@@ -133,13 +143,3 @@ end
 # puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_ |_ |_ |_ |_ |_ |_ |_ |_ \n|_||_||_||_||_||_||_||_||_|\n                           \n") == "666666666 AMB ['666566666', '686666666']"
 # puts Parser.convert_to_digits(" _  _  _  _  _  _  _  _  _ \n|_||_||_||_||_||_||_||_||_|\n _| _| _| _| _| _| _| _| _|\n                           \n") == "999999999 AMB ['899999999', '993999999', '999959999']"
 # puts Parser.convert_to_digits("    _  _  _  _  _  _     _ \n|_||_|| || ||_   |  |  ||_ \n  | _||_||_||_|  |  |  | _|\n                           \n") == "490067715 AMB ['490067115', '490067719', '490867715']"
-
-# Readin Tests
-
-if ARGV[0]
-  Parser.parse(ARGV[0])
-else
-  puts "From which file would you like to read account numbers?"
-  filename = gets.chomp
-  Parser.parse(filename)
-end

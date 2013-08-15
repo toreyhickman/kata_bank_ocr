@@ -1,3 +1,5 @@
+# Writes elements in an array to a file
+
 class DocumentWriter
 
   def self.write(array)
