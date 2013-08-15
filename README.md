@@ -7,7 +7,7 @@ http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR
 
 To parse a file, from the command line run the command ...
 
-  $ ruby parser.rb <filename>
+  $ ruby parser.rb filename
 
 The program will output a new text file in the outputs/ directory.
 
